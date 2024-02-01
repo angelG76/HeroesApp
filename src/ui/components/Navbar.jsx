@@ -1,15 +1,17 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
-import { useState } from 'react'
 export const Navbar = () => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false)
 
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!isDropdownOpen)
-  };
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    navigate('/login', {
+      replace: true
+    })
+  }
+
   return (
     <>
-
 
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -24,6 +26,7 @@ export const Navbar = () => {
           </button>
           <div className="hidden w-full md:flex md:w-auto" id="navbar-default">
             <ul className="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <Link to="/" className="nav-link">Asociaciones</Link>
               <NavLink
                 to="/marvel"
                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
@@ -36,19 +39,25 @@ export const Navbar = () => {
               >
                 Dc
               </NavLink>
+              <NavLink
+                to="/hero"
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              >
+                Hero
+              </NavLink>
 
               <span className='nav-item nav-link text-blue-400'>
                 Angel
               </span>
 
-              <button className='btn-alternative'>
+              <button onClick={onLogout} className='btn-alternative'>
                 Logout
               </button>
+
             </ul>
           </div>
         </div>
       </nav>
-
 
 
     </>
