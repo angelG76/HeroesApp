@@ -1,10 +1,15 @@
+import { useContext } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../auth/context/AuthContext'
 
 export const Navbar = () => {
 
   const navigate = useNavigate()
 
+  const { user, logout } = useContext(AuthContext)
+
   const onLogout = () => {
+    logout()
     navigate('/login', {
       replace: true
     })
@@ -40,6 +45,12 @@ export const Navbar = () => {
                 Dc
               </NavLink>
               <NavLink
+                to="/search"
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+              >
+                Search
+              </NavLink>
+              <NavLink
                 to="/hero"
                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               >
@@ -47,7 +58,7 @@ export const Navbar = () => {
               </NavLink>
 
               <span className='nav-item nav-link text-blue-400'>
-                Angel
+                {user?.name}
               </span>
 
               <button onClick={onLogout} className='btn-alternative'>
